@@ -1,0 +1,355 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Crash Course- Lesson 6</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="index.html" class="logo"><strong>Crash Course</strong> by PN</a>
+									<ul class="icons">
+										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+									</ul>
+								</header>
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h1>A Crash Course for R</h1>
+									</header>
+
+									<span class="image main"><img src="images/CC06.jpg" alt="" /></span>
+
+<h2>Lesson 6: Data Analysis</h2>
+
+
+<p>In this lesson, we will explore various data analysis techniques commonly employed in geology. These techniques play a pivotal role in extracting meaningful insights and drawing conclusions from geological datasets.</p>
+
+<h3>Descriptive Statistics</h3>
+
+<p>Descriptive statistics serve as the foundation for understanding and summarizing geological data. They provide valuable insights into key characteristics of geological datasets. Let's explore these statistics with geological examples:</p>
+
+
+<pre><code># Descriptive statistics with geological data
+# Sample data: Mineral hardness (Mohs scale)
+mineral_hardness <- c(7, 6, 5, 8, 6, 7, 6, 9, 8, 5)
+
+# Mean mineral hardness
+mean_hardness <- mean(mineral_hardness)
+
+# Median mineral hardness
+median_hardness <- median(mineral_hardness)
+
+# Standard deviation of mineral hardness
+sd_hardness <- sd(mineral_hardness)
+
+# Range of mineral hardness
+range_hardness <- range(mineral_hardness)
+
+# Percentiles of mineral hardness (25th and 75th percentiles)
+percentiles_hardness <- quantile(mineral_hardness, c(0.25, 0.75))
+</code></pre>
+
+<p>In this example, we have mineral hardness data (on the Mohs scale), and we calculate the mean, median, standard deviation, range, and percentiles to summarize this geological attribute.</p>
+
+<h3>Linear Regression</h3>
+
+
+<p>Linear regression is a valuable tool for modeling relationships between variables. Let's apply it to geological data:</p>
+
+<pre><code># Linear regression with geological data
+# Sample data: Depth vs. Temperature in a geological borehole
+depth <- c(100, 200, 300, 400, 500)
+temperature <- c(20, 18, 15, 12, 10)
+
+# Perform linear regression
+regression_model <- lm(temperature ~ depth)
+
+# Summary of the linear regression model
+summary(regression_model)
+</code></pre>
+
+<p>In this example, we use linear regression to model the relationship between depth and temperature in a geological borehole.</p>
+
+
+<h3>Non-linear Regression</h3>
+
+
+<p>Geological phenomena often exhibit non-linear behavior. Let's apply non-linear regression to geological data:
+</p>
+
+<pre><code># Non-linear regression with geological data
+# Sample data: Radioactive decay of a geological element
+time <- c(0, 1, 2, 3, 4, 5)
+concentration <- c(100, 75, 56, 42, 31, 23)
+
+# Define a non-linear model (exponential decay)
+non_linear_model <- nls(concentration ~ a * exp(b * time), start = list(a = 100, b = -0.2))
+
+# Summary of the non-linear regression model
+summary(non_linear_model)
+
+</code></pre>
+
+<p>In this example, we use non-linear regression to model the radioactive decay of a geological element, which often follows an exponential decay pattern.
+</p>
+
+
+<h3>Hypothesis Testing</h3>
+
+<p>Let's consider a geological hypothesis test involving the average porosity of two rock types, sandstone, and shale. The hypothesis is whether there is a significant difference in porosity between these two rock types.</p>
+
+
+<pre><code># Hypothesis testing with geological data
+# Sample data: Porosity (%) in Sandstone and Shale samples
+sandstone_porosity <- c(15.2, 14.8, 15.5, 14.9, 15.1)
+shale_porosity <- c(12.0, 11.8, 11.5, 12.2, 12.1)
+
+# Independent two-sample t-test
+t_test_result <- t.test(sandstone_porosity, shale_porosity)
+
+# Check the p-value for significance
+if (t_test_result$p.value < 0.05) {
+  hypothesis_result <- "Reject Null Hypothesis (Significant Difference)"
+} else {
+  hypothesis_result <- "Fail to Reject Null Hypothesis (No Significant Difference)"
+}
+
+# Print the hypothesis test result
+cat("Hypothesis Test Result:", hypothesis_result, "\n")
+</code></pre>
+
+<p>In this example, we perform an independent two-sample t-test to determine if there is a significant difference in porosity between sandstone and shale samples. The hypothesis test result will indicate whether the difference in porosity is statistically significant or not.</p>
+
+<p>Interpreting the results of a hypothesis test, such as a t-test, involves assessing the statistical evidence to determine whether your hypothesis is supported or not. Here's how to interpret the results:</p>
+
+<ol>
+
+<li>
+<strong>Null Hypothesis (H0):</strong>
+ This is the default assumption that there is no significant difference or effect. In the context of a t-test, it typically suggests that there is no difference between the groups being compared.
+</li>
+
+<li>
+<strong>Alternative Hypothesis (Ha):</strong> This is the statement you want to test. It suggests that there is a significant difference or effect between the groups.
+</li>
+
+<li>
+<strong>P-value:</strong> The p-value represents the probability of obtaining results as extreme as, or more extreme than, the observed data if the null hypothesis is true. In other words, it quantifies the strength of the evidence against the null hypothesis.
+
+<ul>
+	<li> A small p-value (usually less than 0.05) suggests that the observed results are unlikely to have occurred by chance alone, indicating evidence against the null hypothesis.</li>
+	<li>A large p-value (greater than 0.05) suggests that the observed results could plausibly occur by chance, providing weaker evidence against the null hypothesis.</li>  
+</ul>
+</li>
+<li>
+<strong>Significance Level (Alpha): </strong> This is the predetermined threshold (typically set at 0.05) that determines whether the p-value is considered statistically significant. If the p-value is less than alpha, you reject the null hypothesis.
+</li>
+</ol>
+
+
+<h4>Interpreting the Results:</h4>
+
+
+<ul>
+<li>    If p-value < Alpha (e.g., p < 0.05):
+        You can conclude that there is strong evidence against the null hypothesis.
+        You reject the null hypothesis in favor of the alternative hypothesis.
+        You may state that there is a statistically significant difference or effect.</li>
+
+<li>    If p-value ≥ Alpha (e.g., p ≥ 0.05):
+        You do not have enough evidence to reject the null hypothesis.
+        You cannot conclude that there is a significant difference or effect.
+        The results are not statistically significant.</li>
+
+</ul>
+
+
+<p>In the context of geological hypothesis testing, here are a few examples:</p>
+
+<p>If you are testing whether the porosity of sandstone is significantly different from shale and you get a p-value of 0.03 (p < 0.05), you would conclude that there is strong evidence that the porosity of the two rock types differs significantly.</p>
+
+<p>If you are testing whether there is a significant difference in compressive strength among granite, basalt, and limestone and you get a p-value of 0.25 (p ≥ 0.05), you would fail to find significant evidence of a difference in compressive strength among these geological formations.</p>
+    
+<p>Always consider the context and the specific hypotheses you are testing in geological research when interpreting the results of hypothesis tests. The p-value provides a quantitative measure of the evidence against the null hypothesis, but the interpretation should be based on both statistical significance and practical significance in your field of study.</p>
+    
+
+
+
+<h3>ANOVA (Analysis of Variance)</h3>
+
+
+<p>Let's consider an ANOVA analysis involving the compressive strength of rock samples from three different geological formations: Granite, Basalt, and Limestone.</p>
+
+
+<pre><code># ANOVA with geological data
+# Sample data: Compressive Strength (MPa) in different geological formations
+granite_strength <- c(120, 125, 130, 122, 128)
+basalt_strength <- c(90, 88, 92, 91, 89)
+limestone_strength <- c(70, 72, 68, 71, 73)
+
+# Perform one-way ANOVA to compare compressive strength across formations
+anova_result <- aov(c(granite_strength, basalt_strength, limestone_strength) ~ 
+                     rep(c("Granite", "Basalt", "Limestone"), each = 5))
+
+# Check for significant differences
+if (summary(anova_result)$Pr[1] < 0.05) {
+  anova_result_summary <- "Reject Null Hypothesis (Significant Difference)"
+} else {
+  anova_result_summary <- "Fail to Reject Null Hypothesis (No Significant Difference)"
+}
+
+# Print the ANOVA result summary
+cat("ANOVA Result Summary:", anova_result_summary, "\n")
+
+</code></pre>
+
+<p>In this example, we use one-way ANOVA to compare the compressive strength of rock samples from different geological formations. The ANOVA result summary will indicate whether there are significant differences in compressive strength among the formations.
+</p>
+
+<p>Suppose you perform an ANOVA to test whether there is a significant difference in the compressive strength of rock samples from three different geological formations: Granite, Basalt, and Limestone. If the p-value is 0.02 (p < 0.05), you would conclude that there is strong evidence that at least one pair of formations has a significantly different compressive strength. You would then perform post-hoc tests (e.g., Tukey's HSD) to determine which specific pairs of formations are different from each other.</p>
+
+
+<p></p>
+Next, in <a href="CC07-Cleaning.html">Lesson 7-Data Cleaning and Preprocessing</a>, we'll go into the basics of data cleaning and processing using examples from geological data.
+								</section>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Search -->
+								<section id="search" class="alt">
+									<form method="post" action="#">
+										<input type="text" name="query" id="query" placeholder="Search" />
+									</form>
+								</section>
+
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="index.html">Homepage</a></li>
+										<li><a href="generic.html">Generic</a></li>
+										<li>
+											<span class="opener">Crash Course</span>
+											<ul>
+												<li><a href="CC00-Index.html">Index</a></li>
+												<li><a href="CC01-Introduction.html">Lesson 1- Introduction to R</a></li>
+												<li><a href="CC02-R_basics.html">Lesson 2- R basics</a></li>
+												<li><a href="CC03-ImportExport.html">Lesson 3- Data Import and Export</a></li>
+												<li><a href="CC04-Manipulation.html">Lesson 4- Data Manipulation</a></li>
+												<li><a href="CC05-Visualization.html">Lesson 5- Data Visualization</a></li>
+												<li><a href="CC06-Analysis.html">Lesson 6- Data Analysis</a></li>
+												<li><a href="CC07-Cleaning.html">Lesson 7- Data Cleaning and Preprocessing</a></li>
+												<li><a href="CC08-Exploration.html">Lesson 8- Data Exploration</a></li>
+												<li><a href="CC09-Wrangling.html">Lesson 9- Data Wrangling with 'dplyr'</a></li>
+												<li><a href="CC10-ggplot2.html">Lesson 10- Data Visualization with 'ggplot2'</a></li>
+
+											</ul>
+										</li>
+										<li>
+											<span class="opener">Geochemistry</span>
+											<ul>
+												<li><a href="#">Under Construction</a></li>
+											</ul>
+										
+										</li>
+										<li>
+											<span class="opener">Maps</span>
+											<ul>
+												<li><a href="#">Under Construction</a></li>
+											</ul>
+										</li>
+										<li>
+											<span class="opener">Shapefiles</span>
+											<ul>
+												<li><a href="#">Under Construction</a></li>
+											</ul>
+										</li>
+										<li>
+											<span class="opener">Satellite</span>
+											<ul>
+												<li><a href="#">Under Construction</a></li>
+											</ul>
+										</li>
+
+									</ul>
+								</nav>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>New recipe's</h2>
+									</header>
+									<div class="mini-posts">
+										<article>
+											<a href="#" class="image"><img src="images/pic07.jpg" alt="" /></a>
+											<p>This is our first Recipe.</p>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
+											<p>Under construction.</p>
+										</article>
+									</div>
+									<ul class="actions">
+										<li><a href="#" class="button">More</a></li>
+									</ul>
+								</section>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Get in touch</h2>
+									</header>
+									<p>You can always contact me to send a new Recipe, or to ask dor something special...</p>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="#">pmn at uevora.pt</a></li>
+										<li class="icon solid fa-phone">(351) 266-745301</li>
+										<li class="icon solid fa-home">Department of Geosciences<br />
+										School of Science and Technology<br />
+										Évora University<br />
+										Apartado 94, 7000 Évora, Portugal</li>
+									</ul>
+								</section>
+
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; Pedro Nogueira | Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								</footer>
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

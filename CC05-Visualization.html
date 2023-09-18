@@ -1,0 +1,274 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Crash Course- Lesson 5</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="index.html" class="logo"><strong>Crash Course</strong> by PN</a>
+									<ul class="icons">
+										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+									</ul>
+								</header>
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h1>A Crash Course for R</h1>
+									</header>
+
+									<span class="image main"><img src="images/CC05.jpg" alt="" /></span>
+
+<h2>Lesson 5: Data Visualization</h2>
+
+<p>In this lesson, we'll explore the fundamentals of data visualization in R. Data visualization is a powerful tool for geologists to communicate their findings and gain insights from geological data.</p>
+
+
+<h3>Introduction to Data Visualization Using Base R
+</h3>
+
+<p>Data visualization is the process of representing data graphically to aid in understanding and interpretation. In R, you can create a wide range of visualizations using various packages and libraries. We'll start with the basics using base R graphics.</p>
+<p>Imagine you have collected geochemical data from 10 different igneous rock samples, and you want to organize this data into a dataset. Each sample will include the concentrations of major elements commonly found in igneous rocks, such as SiO2 (Silicon Dioxide), Al2O3 (Aluminum Oxide), Fe2O3 (Iron Oxide), MgO (Magnesium Oxide), CaO (Calcium Oxide), Na2O (Sodium Oxide), and K2O (Potassium Oxide).</p>
+
+<p>Here's a tabular representation of your dataset:
+</p>
+
+<span class="image main"><img src="images/CC05-Figure1.png" alt="" /></span>
+
+<p>This dataset represents the major element composition (as percentages) of 10 different igneous rock samples. You can create this dataset in R by using the data.frame() function, specifying the values for each column.</p>
+
+<p><strong>Here's how you can create the data frame.</strong></p>
+
+<pre><code># Create a data frame with geochemical analysis data for igneous rocks
+geochem_data <- data.frame(
+  Sample = 1:10,
+  SiO2 = c(65.2, 60.7, 67.8, 62.4, 64.3, 66.1, 61.9, 68.2, 63.7, 67.0),
+  Al2O3 = c(14.3, 15.5, 13.1, 15.8, 14.6, 14.0, 15.7, 13.0, 14.9, 13.5),
+  Fe2O3 = c(5.6, 6.3, 4.9, 6.1, 5.8, 5.7, 6.0, 5.0, 5.9, 5.2),
+  MgO = c(4.2, 3.9, 4.5, 4.0, 4.3, 4.1, 3.8, 4.6, 4.4, 4.7),
+  CaO = c(2.1, 2.3, 2.0, 2.2, 2.4, 2.3, 2.1, 2.2, 2.5, 2.3),
+  Na2O = c(3.0, 2.8, 2.9, 3.2, 2.7, 3.1, 2.6, 2.8, 2.5, 2.7),
+  K2O = c(0.8, 1.2, 1.0, 1.1, 1.0, 0.9, 1.3, 0.7, 1.1, 0.9)
+)
+
+# Display the geochemical analysis dataset
+print(geochem_data)</code></pre>
+
+<p>This code creates a data frame called geochem_data containing the geochemical analysis data for 10 samples of igneous rocks, including major element concentrations (SiO2, Al2O3, Fe2O3, MgO, CaO, Na2O, and K2O) for each sample.</p>
+
+<p>TSo let's explore data visualization techniques using the <strong>Base R </strong>graphics. We'll use the <em>geochem_data</em> dataset to create various types of plots and customize them to effectively visualize the geochemical data of the igneous rock samples.</p>
+
+<h4>Creating Various Types of Plots</h4>
+
+<p><strong>Scatter Plots:</strong> are effective for visualizing relationships between two variables. Let's create a scatter plot to explore the relationship between SiO2 and Al2O3 concentrations:</p>
+    
+
+<pre><code>plot(geochem_data$SiO2, geochem_data$Al2O3, 
+     xlab = "SiO2 (%)", ylab = "Al2O3 (%)", 
+     main = "SiO2 vs. Al2O3 Scatter Plot")</code></pre>
+
+<p><strong>Bar Charts: </strong>To visualize the average concentration of SiO2 in the samples, we can create a bar chart:
+</p>
+
+
+<pre><code>barplot(mean(geochem_data$SiO2), 
+        main = "Average SiO2 Concentration",
+        ylab = "SiO2 (%)")</code></pre>
+
+
+<p><strong>Histograms:</strong> To explore the distribution of K2O concentrations, we can create a histogram:</p>
+
+<pre><code>    hist(geochem_data$K2O, 
+         main = "Histogram of K2O Concentration",
+         xlab = "K2O (%)", ylab = "Frequency")</code></pre>
+
+
+<h4>Customizing Plots</h4>
+
+<p>Customization is essential to make your plots informative and visually appealing. You can customize various aspects of your plots, including titles, labels, colors, and more. For example, you can change the color of the points in a scatter plot or adjust the bin width in a histogram.</p>
+
+
+<p>By using base R graphics, you have the flexibility to create and customize a wide range of visualizations to explore and present your geochemical data effectively. In the chapters that follow, we'll explore more advanced data visualization techniques and packages in R for even more powerful visualizations.</p>
+
+<p>One can say that customization can help convey specific information and enhance the visual appeal of your plots:</p>
+
+<p><strong>Customizing Scatter Plots:</strong> You can customize scatter plots by changing the point colors, sizes, and adding labels. For instance, let's customize our SiO2 vs. Al2O3 scatter plot;</p>
+
+<pre><code># Create a scatter plot with customized points
+plot(geochem_data$SiO2, geochem_data$Al2O3, 
+     xlab = "SiO2 (%)", ylab = "Al2O3 (%)", 
+     main = "SiO2 vs. Al2O3 Scatter Plot",
+     col = "blue", pch = 16, cex = 1.5)  # Change point color, style, and size</code></pre>
+
+
+<p><strong>Customizing Bar Charts:</strong> Bar charts can be customized by adjusting colors, adding labels, and modifying axis scales. To customize the average SiO2 concentration bar chart:</p>
+
+
+<pre><code># Create a bar chart with customizations
+barplot(mean(geochem_data$SiO2), 
+        main = "Average SiO2 Concentration",
+        ylab = "SiO2 (%)",
+        col = "green",  # Change bar color
+        names.arg = "SiO2",  # Add custom label
+        ylim = c(0, 80))  # Modify y-axis limits</code></pre>
+
+<p><strong>Customizing Histograms:</strong> Histograms can be customized by changing the bin width, colors, and adding additional information. To customize the K2O concentration histogram:</p>
+
+<pre><code>
+    # Create a histogram with customizations
+    hist(geochem_data$K2O, 
+         main = "Histogram of K2O Concentration",
+         xlab = "K2O (%)", ylab = "Frequency",
+         col = "purple",  # Change histogram color
+         breaks = 10)  # Adjust bin width</code></pre>
+
+<p>These customizations are just a starting point. Base R graphics offer extensive customization options, allowing you to tailor your plots to your specific needs and preferences. Effective data visualization is essential for geologists to convey geological insights and patterns accurately, and customizations play a significant role in achieving that goal.</p>
+
+<p>In the Recipes, we'll explore advanced data visualization techniques, including interactive and specialized geological plots, using additional R packages.</p>
+
+
+
+<p></p>
+Next, in <a href="CC06-Analysis.html">Lesson 6-Data Analysis</a>, we'll go into the basics of data analysis using examples from geological data.
+								</section>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Search -->
+								<section id="search" class="alt">
+									<form method="post" action="#">
+										<input type="text" name="query" id="query" placeholder="Search" />
+									</form>
+								</section>
+
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="index.html">Homepage</a></li>
+										<li><a href="generic.html">Generic</a></li>
+										<li>
+											<span class="opener">Crash Course</span>
+											<ul>
+												<li><a href="CC00-Index.html">Index</a></li>
+												<li><a href="CC01-Introduction.html">Lesson 1- Introduction to R</a></li>
+												<li><a href="CC02-R_basics.html">Lesson 2- R basics</a></li>
+												<li><a href="CC03-ImportExport.html">Lesson 3- Data Import and Export</a></li>
+												<li><a href="CC04-Manipulation.html">Lesson 4- Data Manipulation</a></li>
+												<li><a href="CC05-Visualization.html">Lesson 5- Data Visualization</a></li>
+												<li><a href="CC06-Analysis.html">Lesson 6- Data Analysis</a></li>
+												<li><a href="CC07-Cleaning.html">Lesson 7- Data Cleaning and Preprocessing</a></li>
+												<li><a href="CC08-Exploration.html">Lesson 8- Data Exploration</a></li>
+												<li><a href="CC09-Wrangling.html">Lesson 9- Data Wrangling with 'dplyr'</a></li>
+												<li><a href="CC10-ggplot2.html">Lesson 10- Data Visualization with 'ggplot2'</a></li>
+
+											</ul>
+										</li>
+										<li>
+											<span class="opener">Geochemistry</span>
+											<ul>
+												<li><a href="#">Under Construction</a></li>
+											</ul>
+										
+										</li>
+										<li>
+											<span class="opener">Maps</span>
+											<ul>
+												<li><a href="#">Under Construction</a></li>
+											</ul>
+										</li>
+										<li>
+											<span class="opener">Shapefiles</span>
+											<ul>
+												<li><a href="#">Under Construction</a></li>
+											</ul>
+										</li>
+										<li>
+											<span class="opener">Satellite</span>
+											<ul>
+												<li><a href="#">Under Construction</a></li>
+											</ul>
+										</li>
+
+									</ul>
+								</nav>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>New recipe's</h2>
+									</header>
+									<div class="mini-posts">
+										<article>
+											<a href="#" class="image"><img src="images/pic07.jpg" alt="" /></a>
+											<p>This is our first Recipe.</p>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
+											<p>Under construction.</p>
+										</article>
+									</div>
+									<ul class="actions">
+										<li><a href="#" class="button">More</a></li>
+									</ul>
+								</section>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Get in touch</h2>
+									</header>
+									<p>You can always contact me to send a new Recipe, or to ask dor something special...</p>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="#">pmn at uevora.pt</a></li>
+										<li class="icon solid fa-phone">(351) 266-745301</li>
+										<li class="icon solid fa-home">Department of Geosciences<br />
+										School of Science and Technology<br />
+										Évora University<br />
+										Apartado 94, 7000 Évora, Portugal</li>
+									</ul>
+								</section>
+
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; Pedro Nogueira | Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								</footer>
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

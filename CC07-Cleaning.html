@@ -1,0 +1,287 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Crash Course- Lesson 7</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="index.html" class="logo"><strong>Crash Course</strong> by PN</a>
+									<ul class="icons">
+										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+									</ul>
+								</header>
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h1>A Crash Course for R</h1>
+									</header>
+
+									<span class="image main"><img src="images/CC07.jpg" alt="" /></span>
+
+<h2>Lesson 7: Data Cleaning and Preprocessing</h2>
+
+<p>In this lesson, we'll explore essential data cleaning and preprocessing techniques commonly used in geology to prepare datasets for analysis. Proper data preparation ensures that the data is reliable and suitable for various analytical methods.</p>
+
+<h3>Creating Geological Data for Illustration</h3>
+
+
+Let's begin by creating a sample geological dataset that we will use for illustration:
+
+<pre><code># Load necessary libraries
+library(dplyr)
+
+# Create a sample geological dataset
+set.seed(42)  # for reproducibility
+geological_data <- data.frame(
+  Sample_ID = 1:50,
+  Porosity = c(runif(30, 10, 25), NA, runif(19, 12, 22)),
+  Concentration = rnorm(50, mean = 50, sd = 10)
+)</code></pre>
+
+<p>In this example, we have a dataset with 50 geological samples, including measurements of porosity and concentration. We intentionally introduced missing values (NA) in the porosity column for illustration.</p>
+
+<h3>Dealing with Missing Data</h3>
+
+<p>Dealing with missing data is crucial for accurate analysis. Let's impute missing porosity values with the mean:</p>
+
+<pre><code>
+# Impute missing porosity values with the mean
+
+# Calculate the mean
+mean_porosity <- mean(geological_data$Porosity, na.rm = TRUE)
+
+# If the value is NA replace it by the mean
+geological_data$Porosity[is.na(geological_data$Porosity)] <- mean_porosity
+</code></pre>
+
+<p>Now, the missing porosity values have been imputed with the mean value.</p>
+
+
+<h3>Handling Outliers</h3>
+
+<p>Outliers can distort analysis results, so it's essential to address them. Let's identify and winsorize outliers in the concentration column:</p>
+
+<pre><code># Identify and winsorize outliers in the concentration column
+quantiles <- quantile(geological_data$Concentration, c(0.05, 0.95))
+
+# Replace lower outliers by the lower than 0.05 value
+geological_data$Concentration[geological_data$Concentration < quantiles[1]] <- quantiles[1]
+
+# Replace upper outliers by the higher than 0.95 value
+geological_data$Concentration[geological_data$Concentration > quantiles[2]] <- quantiles[2]
+
+</code></pre>
+
+<p>Outliers in the concentration column have been identified and replaced with less extreme values using winsorization.</p>
+
+
+
+<h3>Data Scaling and Normalization</h3>
+
+<p>Data scaling and normalization are crucial when variables have different scales. Let's perform min-max scaling on the porosity values and z-score standardization on the concentration values:</p>
+
+<pre><code># Min-max scaling of porosity
+min_max_scale <- function(x) {
+  (x - min(x)) / (max(x) - min(x))
+}
+geological_data$Scaled_Porosity <- min_max_scale(geological_data$Porosity)
+
+# Z-score standardization of concentration
+z_score <- function(x) {
+  (x - mean(x)) / sd(x)
+}
+geological_data$Standardized_Concentration <- z_score(geological_data$Concentration)</code></pre>
+
+
+<p>The porosity values have been scaled to the range [0, 1], and the concentration values have been standardized to have a mean of 0 and a standard deviation of 1.
+</p>
+
+<p>Proper data cleaning and preprocessing enhance the quality of geological analyses and help in building more reliable predictive models. These techniques ensure that the data is ready for advanced statistical analyses and interpretation in geological research.</p>
+
+<h3>This is a bonus... What is a function in R</h3>
+
+<p>In R programming language, a function is a reusable block of code that performs a specific task or set of tasks. Functions are used to encapsulate a piece of logic, making code modular, easier to understand, and more maintainable. They take input values (called arguments or parameters), perform operations based on those inputs, and return a result.</p>
+
+<p>Here's a breakdown of the key components of a function:
+</p>
+
+<ol>
+<li><strong>Function Name:</strong> A descriptive name that identifies the function and what it does. In the previous example, the function is named min_max_scale.</li>
+
+<li><strong>Parameters:</strong> These are placeholders for values that the function needs to perform its task. Parameters are defined within parentheses following the function name. For example, x is a parameter in the min_max_scale function, representing the input data.</li>
+
+<li><strong>Function Body:</strong> The body of the function contains the actual code that performs the desired operations. It specifies how the function processes the input data and what it returns.</li>
+
+<li><strong>Return Statement:</strong> Many functions return a value as a result of their operations. The return statement is used to specify the value that the function should return to the caller.</li>
+</ol>
+
+<p>In the min_max_scale function from the previous example, here's what it does:</p>
+
+<ul>
+<li>Input Parameter: x represents a numeric vector of data.</li>
+<li>Function Body: It scales the input data to a range between 0 and 1 based on the minimum and maximum values in the input vector.</li>
+<li>Return Statement: The scaled data is returned as the result of the function.</li>
+</ul>
+
+<p>Here's the function definition for min_max_scale in R:
+</p>
+
+<pre><code>min_max_scale <- function(x) {
+  (x - min(x)) / (max(x) - min(x))}</code></pre>
+
+<p>To use this function, you would call it with an argument, like this:
+</p>
+
+<pre><code>scaled_data <- min_max_scale(geological_data$Porosity)
+</code></pre>
+
+<p>This call <em><strong>to min_max_scale()</strong></em> passes the Porosity column from the <em>geological_data </em> dataset as the argument, and it returns the scaled data in the <em>scaled_data variable</em>. Functions are an essential concept in programming, enabling code reusability and abstraction of complex tasks into manageable units.</p>
+
+
+
+
+<p></p>
+Next, in <a href="CC08-Exploration.html">Lesson 8-Data Exploration</a>, we'll go into the basics of exploratory data analysis using examples from geological data.
+								</section>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Search -->
+								<section id="search" class="alt">
+									<form method="post" action="#">
+										<input type="text" name="query" id="query" placeholder="Search" />
+									</form>
+								</section>
+
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="index.html">Homepage</a></li>
+										<li><a href="generic.html">Generic</a></li>
+										<li>
+											<span class="opener">Crash Course</span>
+											<ul>
+												<li><a href="CC00-Index.html">Index</a></li>
+												<li><a href="CC01-Introduction.html">Lesson 1- Introduction to R</a></li>
+												<li><a href="CC02-R_basics.html">Lesson 2- R basics</a></li>
+												<li><a href="CC03-ImportExport.html">Lesson 3- Data Import and Export</a></li>
+												<li><a href="CC04-Manipulation.html">Lesson 4- Data Manipulation</a></li>
+												<li><a href="CC05-Visualization.html">Lesson 5- Data Visualization</a></li>
+												<li><a href="CC06-Analysis.html">Lesson 6- Data Analysis</a></li>
+												<li><a href="CC07-Cleaning.html">Lesson 7- Data Cleaning and Preprocessing</a></li>
+												<li><a href="CC08-Exploration.html">Lesson 8- Data Exploration</a></li>
+												<li><a href="CC09-Wrangling.html">Lesson 9- Data Wrangling with 'dplyr'</a></li>
+												<li><a href="CC10-ggplot2.html">Lesson 10- Data Visualization with 'ggplot2'</a></li>
+
+											</ul>
+										</li>
+										<li>
+											<span class="opener">Geochemistry</span>
+											<ul>
+												<li><a href="#">Under Construction</a></li>
+											</ul>
+										
+										</li>
+										<li>
+											<span class="opener">Maps</span>
+											<ul>
+												<li><a href="#">Under Construction</a></li>
+											</ul>
+										</li>
+										<li>
+											<span class="opener">Shapefiles</span>
+											<ul>
+												<li><a href="#">Under Construction</a></li>
+											</ul>
+										</li>
+										<li>
+											<span class="opener">Satellite</span>
+											<ul>
+												<li><a href="#">Under Construction</a></li>
+											</ul>
+										</li>
+
+									</ul>
+								</nav>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>New recipe's</h2>
+									</header>
+									<div class="mini-posts">
+										<article>
+											<a href="#" class="image"><img src="images/pic07.jpg" alt="" /></a>
+											<p>This is our first Recipe.</p>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
+											<p>Under construction.</p>
+										</article>
+									</div>
+									<ul class="actions">
+										<li><a href="#" class="button">More</a></li>
+									</ul>
+								</section>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Get in touch</h2>
+									</header>
+									<p>You can always contact me to send a new Recipe, or to ask dor something special...</p>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="#">pmn at uevora.pt</a></li>
+										<li class="icon solid fa-phone">(351) 266-745301</li>
+										<li class="icon solid fa-home">Department of Geosciences<br />
+										School of Science and Technology<br />
+										Évora University<br />
+										Apartado 94, 7000 Évora, Portugal</li>
+									</ul>
+								</section>
+
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; Pedro Nogueira | Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								</footer>
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

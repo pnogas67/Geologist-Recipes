@@ -1,0 +1,276 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Crash Course- Lesson 9</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="index.html" class="logo"><strong>Crash Course</strong> by PN</a>
+									<ul class="icons">
+										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+									</ul>
+								</header>
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h1>A Crash Course for R</h1>
+									</header>
+
+									<span class="image main"><img src="images/CC09.jpg" alt="" /></span>
+
+<h2>Lesson 9: Data wrangling with 'dplyr'</h2>
+
+<p>In this lesson, we will explore the 'dplyr' package in R, which is widely used in geological research for efficient data manipulation. Wrangling data with 'dplyr' implies various operations including filter, select, arrange, and summarize data to meet specific analytical needs.</p>
+
+
+<h4>Why Packages?</h4>
+<p>R is an open-source programming language and environment with a large ecosystem of packages. These packages extend R's capabilities and are invaluable for various tasks, including data manipulation, analysis, and visualization in geological research. In this sub-chapter, we'll explore how to install and use packages in R with RStudio, with a focus on the dplyr package for data manipulation.</p>
+
+
+<h4>Installing Packages</h4>
+
+
+<p>To install packages in R, you can use the install.packages() function. Here's how to install the dplyr package:</p>
+
+
+<pre><code># Install the dplyr package for data manipulation
+install.packages("dplyr")</code></pre>
+
+<ul>
+<li><strong>Open RStudio:</strong> Launch RStudio, a powerful integrated development environment (IDE) for R.</li>
+<li><strong>Access the Console:</strong> In RStudio, the Console pane is where you interact with R by executing commands.</li>
+<li><strong>Install Packages:</strong> Use the install.packages() function with the package name in double quotes, like "dplyr". Press Enter to initiate the installation process. R will download and install the package from CRAN or your specified repository.</li>
+
+</ul>
+    
+
+<h4>Loading Packages</h4>
+
+    
+<p>Once a package is installed, load it into your R session using the library() function:</p>
+
+<pre><code># Load the dplyr package for data manipulation
+library(dplyr)</code></pre>
+
+<p>Loading a package makes its functions available for use in your R session. You should load a package each time you start a new R session.</p>
+
+<h4>The 'dplyr' package</h4>
+
+<p>The dplyr package provides a suite of functions that simplify the process of manipulating data frames. Commonly used dplyr functions include filter(), select(), arrange(), mutate(), and summarize(). Let's dive into some of these operations with geological data.</p>
+
+<p>For the examples in this chapter we will use the same data set created in <a href="CC08-Exploration.html#create_data">Chapter 8</a>.</p>
+
+<h4>Introduction to the Pipe Operator ( %>% )</h4>
+
+<p>In R, data analysis often involves a sequence of operations, such as filtering, selecting, transforming, and summarizing data. These operations can become complex and difficult to read when nested within each other. This is where the %>% operator comes to the rescue.</p>
+
+<p>The %>% operator allows you to chain multiple operations together in a clear and sequential manner, passing the output of one operation as the input to the next. It simplifies your code by eliminating the need for intermediate variables and making your data analysis scripts more readable.</p>
+
+<h5>Key Benefits of the %>% Operator:</h5>
+
+<ul>
+<li><strong>Readability:</strong> The pipe operator promotes a left-to-right reading flow, making your code more understandable, especially when you have a series of data transformations.</li>
+<li><strong>Code Efficiency:</strong> It reduces the need to create and manage intermediate objects, leading to more concise and efficient code.</li>
+<li><strong>Modularity:</strong> You can break down complex data manipulation tasks into smaller, more manageable steps, improving code modularity and maintainability.</li>
+</ul>
+
+
+<p>In the following examples we start using the pipe operator to chained operations.</p>
+
+
+<h4>Filtering Data</h4>
+
+<p>Filtering allows you to subset data based on specific conditions. For example, you might want to extract geological samples from a certain depth range.</p>
+
+
+<pre><code># Load the library
+library(dplyr)
+
+# Filtering geological data for samples between 500 and 800 meters depth
+filtered_data <- geological_data %>%
+  filter(Depth_meters >= 500, Depth_meters <= 800)</code></pre>
+
+<h4>Selecting Columns</h4>
+
+<p>Selecting columns is useful when you want to focus on specific variables of interest. For instance, you might want to work with only depth and porosity data.</p>
+
+<pre><code># Selecting depth and porosity columns
+selected_data <- geological_data %>%
+  select(Depth_meters, Porosity_percent)</code></pre>
+
+<h4>Arranging Data</h4>
+
+<p>Arranging data involves sorting it based on one or more columns. For geological research, arranging data can be helpful when studying geological events in chronological order.</p>
+
+<pre><code># Arranging geological data by depth in ascending order
+arranged_data <- geological_data %>%
+  arrange(Depth_meters)</code></pre>
+
+<h4>Summarizing Data</h4>
+
+<p>Summarizing data allows you to calculate summary statistics or create aggregated summaries. For example, you might want to calculate the average porosity by depth range.</p>
+
+
+<pre><code># Summarizing average porosity by depth range
+summary_data <- geological_data %>%
+  group_by(Depth_Group = cut(Depth_meters, breaks = c(0, 200, 400, 600, Inf))) %>%
+  summarize(Avg_Porosity = mean(Porosity_percent, na.rm = TRUE))</code></pre>
+
+<h4>Chaining Operations</h4>
+
+<p>One of the strengths of 'dplyr' is the ability to chain multiple operations together, creating a clear and concise workflow for data manipulation.</p>
+
+<pre><code># Filtering, selecting, and summarizing data in one chain
+result <- geological_data %>%
+  filter(Depth_meters >= 500, Depth_meters <= 800) %>%
+  select(Depth_meters, Porosity_percent) %>%
+  group_by(Depth_Group = cut(Depth_meters, breaks = c(0, 200, 400, 600, Inf))) %>%
+  summarize(Avg_Porosity = mean(Porosity_percent, na.rm = TRUE))</code></pre>
+
+<p>The 'dplyr' package streamlines the process of preparing geological data for analysis. Whether you need to filter specific samples, select relevant variables, arrange data chronologically, or create summarized statistics, 'dplyr' offers a powerful set of tools for efficient data manipulation in geological research.</p>
+
+<p></p>
+Next, in <a href="CC10-ggplot2.html">Lesson 10-Data Visualization with ggplot2</a>, we'll go into the realms of advanced data visualization using the 'ggplot2' package with examples from geological data.
+								</section>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Search -->
+								<section id="search" class="alt">
+									<form method="post" action="#">
+										<input type="text" name="query" id="query" placeholder="Search" />
+									</form>
+								</section>
+
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="index.html">Homepage</a></li>
+										<li><a href="generic.html">Generic</a></li>
+										<li>
+											<span class="opener">Crash Course</span>
+											<ul>
+												<li><a href="CC00-Index.html">Index</a></li>
+												<li><a href="CC01-Introduction.html">Lesson 1- Introduction to R</a></li>
+												<li><a href="CC02-R_basics.html">Lesson 2- R basics</a></li>
+												<li><a href="CC03-ImportExport.html">Lesson 3- Data Import and Export</a></li>
+												<li><a href="CC04-Manipulation.html">Lesson 4- Data Manipulation</a></li>
+												<li><a href="CC05-Visualization.html">Lesson 5- Data Visualization</a></li>
+												<li><a href="CC06-Analysis.html">Lesson 6- Data Analysis</a></li>
+												<li><a href="CC07-Cleaning.html">Lesson 7- Data Cleaning and Preprocessing</a></li>
+												<li><a href="CC08-Exploration.html">Lesson 8- Data Exploration</a></li>
+												<li><a href="CC09-Wrangling.html">Lesson 9- Data Wrangling with 'dplyr'</a></li>
+												<li><a href="CC10-ggplot2.html">Lesson 10- Data Visualization with 'ggplot2'</a></li>
+
+											</ul>
+										</li>
+										<li>
+											<span class="opener">Geochemistry</span>
+											<ul>
+												<li><a href="#">Under Construction</a></li>
+											</ul>
+										
+										</li>
+										<li>
+											<span class="opener">Maps</span>
+											<ul>
+												<li><a href="#">Under Construction</a></li>
+											</ul>
+										</li>
+										<li>
+											<span class="opener">Shapefiles</span>
+											<ul>
+												<li><a href="#">Under Construction</a></li>
+											</ul>
+										</li>
+										<li>
+											<span class="opener">Satellite</span>
+											<ul>
+												<li><a href="#">Under Construction</a></li>
+											</ul>
+										</li>
+
+									</ul>
+								</nav>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>New recipe's</h2>
+									</header>
+									<div class="mini-posts">
+										<article>
+											<a href="#" class="image"><img src="images/pic07.jpg" alt="" /></a>
+											<p>This is our first Recipe.</p>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
+											<p>Under construction.</p>
+										</article>
+									</div>
+									<ul class="actions">
+										<li><a href="#" class="button">More</a></li>
+									</ul>
+								</section>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Get in touch</h2>
+									</header>
+									<p>You can always contact me to send a new Recipe, or to ask dor something special...</p>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="#">pmn at uevora.pt</a></li>
+										<li class="icon solid fa-phone">(351) 266-745301</li>
+										<li class="icon solid fa-home">Department of Geosciences<br />
+										School of Science and Technology<br />
+										Évora University<br />
+										Apartado 94, 7000 Évora, Portugal</li>
+									</ul>
+								</section>
+
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; Pedro Nogueira | Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								</footer>
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

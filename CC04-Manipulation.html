@@ -1,0 +1,322 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Crash Course- Lesson 4</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="index.html" class="logo"><strong>Crash Course</strong> by PN</a>
+									<ul class="icons">
+										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+									</ul>
+								</header>
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h1>A Crash Course for R</h1>
+									</header>
+
+									<span class="image main"><img src="images/CC04.jpg" alt="" /></span>
+
+
+<h2>Lesson 4: Data Manipulation for Geologists
+</h2>
+<p>In this lesson, we'll explore essential data manipulation techniques tailored for geologists. Data manipulation is crucial in geology as it enables the extraction, transformation, and organization of geological data for analysis and interpretation.</p>						
+
+<h3>Subsetting Data
+</h3>
+
+<p> <strong>Subsetting Geological Data:</strong> Suppose you have a dataset containing geological samples with various attributes. You can subset this data to focus on specific rock types, for example, sedimentary rocks:
+</p>
+
+<pre><code># Create a sample geological data frame
+geological_data <- data.frame(
+  sample_id = c(1, 2, 3, 4, 5),
+  rock_type = c("Sedimentary", "Igneous", "Sedimentary", "Metamorphic", "Sedimentary"),
+  formation = c("Formation A", "Formation B", "Formation A", "Formation C", "Formation D")
+)
+
+# Display the original geological data frame
+print(geological_data)
+
+# Subset for Sedimentary rocks
+sedimentary_rocks <- geological_data[geological_data$rock_type == "Sedimentary", ]
+
+# Display the subset of Sedimentary rocks
+print(sedimentary_rocks)
+</code></pre>
+
+<p>In this example:</p>
+<p>We create a sample geological data frame called <em>geological_data</em> with columns for <em>sample_id</em>, <em>rock_type</em>, and <em>formation</em>.
+</p>
+<p>The data frame is printed to show the original data.</p>
+<p>We then use subsetting to extract only the rows where the <em>rock_type</em> is "Sedimentary" and store the result in a new data frame called <em>sedimentary_rocks</em>.</p>
+<p>Finally, we print the subset of Sedimentary rocks.</p>
+
+<p>The resulting <em>sedimentary_rocks</em> data frame will contain only the rows corresponding to Sedimentary rocks, allowing you to work specifically with that subset of geological data.</p>
+
+
+<h3>Adding, Removing, and Renaming Variables</h3>
+<p>For this example we will create a sample geological dataset and demonstrate adding, removing, and renaming variables:</p>
+
+<pre><code># Create a sample geological dataset
+geological_data <- data.frame(
+  sample_id = c(1, 2, 3, 4, 5),
+  rock_type = c("Sedimentary", "Igneous", "Sedimentary", "Metamorphic", "Sedimentary"),
+  formation = c("Formation A", "Formation B", "Formation A", "Formation C", "Formation D"),
+  mineral_composition = c("Quartzite", "Granite", "Sandstone", "Slate", "Limestone"),
+  depth = c(100, 200, 150, 300, 120)
+)
+
+# Display the original geological dataset
+print(geological_data)</code></pre>
+
+<p>In this example, we've created a simplified geological dataset with columns for <em>sample_id</em>, <em>rock_type</em>, <em>formation</em>, <em>mineral_composition</em>, and <em>depth</em>. Each row represents a geological sample.
+</p>
+
+<p>Now, let's demonstrate adding, removing, and renaming variables:</p>
+
+<h4>Adding Geological Attributes</h4>
+
+<p>Suppose we want to add a new variable called age to represent the geological age of each sample:
+</p>
+
+<pre><code># Adding the 'age' variable
+geological_data$age <- c("Cretaceous", "Jurassic", "Paleogene", "Precambrian", "Triassic")
+
+# Display the dataset with the 'age' variable
+print(geological_data)</code></pre>
+
+<p>The age variable has been added to the dataset, and each sample now has an associated geological age.</p>
+
+
+<h4>Removing Unnecessary Variables</h4>
+
+<p>If we decide to remove the <em>mineral_composition</em> variable from the dataset, we can do it like this:</p>
+
+<pre><code># Removing the 'mineral_composition' variable
+geological_data <- geological_data[, -c(4)]
+
+# Display the dataset with the 'mineral_composition' variable removed
+print(geological_data)</code></pre>
+
+<p>The <em>mineral_composition</em> variable has been removed from the dataset.
+</p>
+
+
+<h4>Renaming Variables</h4>
+
+<p>Now, let's rename the depth variable to sample_depth for clarity:</p>
+
+<pre><code># Renaming the 'depth' variable to 'sample_depth'
+colnames(geological_data)[colnames(geological_data) == "depth"] <- "sample_depth"
+
+# Display the dataset with the renamed variable
+print(geological_data)</code></pre>
+
+<p>The <em>depth</em> variable has been successfully renamed to <em>sample_depth</em> in the dataset.
+</p>
+
+<p>These data manipulation operations demonstrate how you can modify the structure of your geological dataset by adding, removing, and renaming variables to make it more meaningful and suitable for analysis.</p>
+
+<h3>Aggregating Data</h3>
+
+
+<p>Suppose we want to calculate the average <em>depth</em> for each geological formation. We can use the <strong>aggregate()</strong> function to do this:
+</p>
+
+<pre><code># Aggregate data by formation to calculate the average depth
+formation_summary <- aggregate(geological_data$depth, by = list(geological_data$formation), FUN = mean)
+
+# Rename columns for clarity
+colnames(formation_summary) <- c("Formation", "Average_Depth")
+
+# Display the formation summary
+print(formation_summary)</code></pre>
+
+<p>In this example:</p>
+<p>We use the <strong>aggregate()</strong> function to calculate the mean depth for each unique geological formation.</p>
+
+<p>The <em><strong>by</strong></em> parameter specifies that we want to group data by the formation variable.</p>
+<p>The <em><strong>FUN</strong></em> parameter specifies the aggregation function, which is <em>mean</em> in this case.</p>  
+    
+
+<p>The resulting <em>formation_summary</em> data frame will show the average depth for each geological formation, making it easier to analyze the depths associated with different formations.</p>
+
+<p>This data aggregation technique can be valuable for geological analyses, allowing you to summarize and gain insights from your data based on specific geological characteristics.</p>
+
+
+<h3>Sorting and Ordering Data</h3>
+
+Suppose you want to sort the geological dataset in ascending order based on depth:
+
+<pre><code># Sort the dataset based on depth in ascending order
+sorted_geological_data <- geological_data[order(geological_data$depth), ]
+
+# Display the sorted dataset
+print(sorted_geological_data)</code></pre>
+
+<p>In this example, we use the <strong>order()</strong> function to sort the <em>geological_data</em> data frame based on the depth column in ascending order. The resulting <em>sorted_geological_data</em> data frame will display the geological samples sorted from shallow to deep.</p>
+
+<p>To sort in descending order, you can use the decreasing argument in the <strong>order()</strong> function:</p>
+
+<pre><code># Sort the dataset based on depth in descending order
+sorted_geological_data_desc <- geological_data[order(geological_data$depth, decreasing = TRUE), ]
+
+# Display the sorted dataset in descending order
+print(sorted_geological_data_desc)</code></pre>
+
+
+<p>This code sorts the dataset based on <em>depth</em> in descending order, displaying the samples from deep to shallow.</p>
+
+<p>Sorting and ordering data are essential for geologists to arrange geological samples or observations in a meaningful sequence, making it easier to analyze and interpret geological characteristics based on depth or other criteria.</p>
+
+
+<p></p>
+Next, in <a href="CC05-Visualization.html">Lesson 5-Data Visualization</a>, we'll go into the basics of visualizing geological data.
+
+
+
+								</section>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Search -->
+								<section id="search" class="alt">
+									<form method="post" action="#">
+										<input type="text" name="query" id="query" placeholder="Search" />
+									</form>
+								</section>
+
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="index.html">Homepage</a></li>
+										<li><a href="generic.html">Generic</a></li>
+										<li>
+											<span class="opener">Crash Course</span>
+											<ul>
+												<li><a href="CC00-Index.html">Index</a></li>
+												<li><a href="CC01-Introduction.html">Lesson 1- Introduction to R</a></li>
+												<li><a href="CC02-R_basics.html">Lesson 2- R basics</a></li>
+												<li><a href="CC03-ImportExport.html">Lesson 3- Data Import and Export</a></li>
+												<li><a href="CC04-Manipulation.html">Lesson 4- Data Manipulation</a></li>
+												<li><a href="CC05-Visualization.html">Lesson 5- Data Visualization</a></li>
+												<li><a href="CC06-Analysis.html">Lesson 6- Data Analysis</a></li>
+												<li><a href="CC07-Cleaning.html">Lesson 7- Data Cleaning and Preprocessing</a></li>
+												<li><a href="CC08-Exploration.html">Lesson 8- Data Exploration</a></li>
+												<li><a href="CC09-Wrangling.html">Lesson 9- Data Wrangling with 'dplyr'</a></li>
+												<li><a href="CC10-ggplot2.html">Lesson 10- Data Visualization with 'ggplot2'</a></li>
+
+											</ul>
+										</li>
+										<li>
+											<span class="opener">Geochemistry</span>
+											<ul>
+												<li><a href="#">Under Construction</a></li>
+											</ul>
+										
+										</li>
+										<li>
+											<span class="opener">Maps</span>
+											<ul>
+												<li><a href="#">Under Construction</a></li>
+											</ul>
+										</li>
+										<li>
+											<span class="opener">Shapefiles</span>
+											<ul>
+												<li><a href="#">Under Construction</a></li>
+											</ul>
+										</li>
+										<li>
+											<span class="opener">Satellite</span>
+											<ul>
+												<li><a href="#">Under Construction</a></li>
+											</ul>
+										</li>
+
+									</ul>
+								</nav>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>New recipe's</h2>
+									</header>
+									<div class="mini-posts">
+										<article>
+											<a href="#" class="image"><img src="images/pic07.jpg" alt="" /></a>
+											<p>This is our first Recipe.</p>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
+											<p>Under construction.</p>
+										</article>
+									</div>
+									<ul class="actions">
+										<li><a href="#" class="button">More</a></li>
+									</ul>
+								</section>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Get in touch</h2>
+									</header>
+									<p>You can always contact me to send a new Recipe, or to ask dor something special...</p>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="#">pmn at uevora.pt</a></li>
+										<li class="icon solid fa-phone">(351) 266-745301</li>
+										<li class="icon solid fa-home">Department of Geosciences<br />
+										School of Science and Technology<br />
+										Évora University<br />
+										Apartado 94, 7000 Évora, Portugal</li>
+									</ul>
+								</section>
+
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; Pedro Nogueira | Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								</footer>
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

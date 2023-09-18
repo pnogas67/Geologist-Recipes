@@ -1,0 +1,222 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Crash Course- Lesson 3</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="index.html" class="logo"><strong>Crash Course</strong> by PN</a>
+									<ul class="icons">
+										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+									</ul>
+								</header>
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h1>A Crash Course for R</h1>
+									</header>
+
+									<span class="image main"><img src="images/CC03.jpg" alt="" /></span>
+									
+<h2>Lesson 3: Data Import and Export</h2>
+
+<p>In this lesson, we'll explore how to work with data in R by learning how to import data from various file formats and export data to different formats.
+</p>
+
+<h3>Reading Data from CSV, Excel, and Other File Formats
+</h3>
+<p>R provides numerous functions and packages for reading data from various file formats. Some commonly used methods include:
+</p>
+
+<ol>
+		<li><strong>CSV Files: </strong>Comma-separated values (CSV) files are one of the most common data formats. You can read CSV files using the read.csv() function:
+		</li>
+		
+		<pre><code>my_data <- read.csv("my_data.csv")
+</code></pre>
+		
+		<li><strong>Excel Files: </strong> To read data from Excel files, you can use packages like readxl or openxlsx. For example:
+		</li>
+		<pre><code>library(readxl)
+my_data <- read_excel("my_data.xlsx")</code></pre>
+		
+		<li><strong>Other Formats:</strong> R supports many other formats, such as JSON, XML, and databases. Packages like jsonlite and XML provide functions for reading data from these formats.
+		</li>
+
+</ol>
+
+ 
+<h3>Exporting Data to Various Formats
+</h3>
+<p>Exporting data from R is just as important as importing it. You can export data to formats like CSV, Excel, and more using functions like:
+</p>
+<ol>
+
+	<li><strong>CSV Files: </strong>To export data to a CSV file, you can use the write.csv() function:
+</li>
+
+<pre><code>write.csv(my_data, "exported_data.csv")
+</code></pre>
+
+<li><strong>Excel Files:</strong> For exporting data to Excel files, you can use packages like writexl or openxlsx. Here's an example using writexl:
+</li>
+<pre><code>library(writexl)
+write_xlsx(my_data, "exported_data.xlsx")
+</code></pre>
+
+<li><strong>Other Formats: </strong>Depending on your needs, you can export data to formats like JSON, XML, or databases. Packages like jsonlite and XML can be helpful for these tasks.
+</li>
+
+</ol>
+
+<p>In this chapter, you've learned the basics of importing and exporting data in R. These skills are crucial for working with real-world datasets and integrating your data analysis workflow with external tools and systems.</p>
+   
+
+<p></p>
+Next, in <a href="CC04-Manipulation.html">Lesson 4-Data Manipulation</a>, we'll go into the basics of manipulation of data.
+
+
+
+								</section>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Search -->
+								<section id="search" class="alt">
+									<form method="post" action="#">
+										<input type="text" name="query" id="query" placeholder="Search" />
+									</form>
+								</section>
+
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="index.html">Homepage</a></li>
+										<li><a href="generic.html">Generic</a></li>
+										<li>
+											<span class="opener">Crash Course</span>
+											<ul>
+												<li><a href="CC00-Index.html">Index</a></li>
+												<li><a href="CC01-Introduction.html">Lesson 1- Introduction to R</a></li>
+												<li><a href="CC02-R_basics.html">Lesson 2- R basics</a></li>
+												<li><a href="CC03-ImportExport.html">Lesson 3- Data Import and Export</a></li>
+												<li><a href="CC04-Manipulation.html">Lesson 4- Data Manipulation</a></li>
+												<li><a href="CC05-Visualization.html">Lesson 5- Data Visualization</a></li>
+												<li><a href="CC06-Analysis.html">Lesson 6- Data Analysis</a></li>
+												<li><a href="CC07-Cleaning.html">Lesson 7- Data Cleaning and Preprocessing</a></li>
+												<li><a href="CC08-Exploration.html">Lesson 8- Data Exploration</a></li>
+												<li><a href="CC09-Wrangling.html">Lesson 9- Data Wrangling with 'dplyr'</a></li>
+												<li><a href="CC10-ggplot2.html">Lesson 10- Data Visualization with 'ggplot2'</a></li>
+
+											</ul>
+										</li>
+										<li>
+											<span class="opener">Geochemistry</span>
+											<ul>
+												<li><a href="#">Under Construction</a></li>
+											</ul>
+										
+										</li>
+										<li>
+											<span class="opener">Maps</span>
+											<ul>
+												<li><a href="#">Under Construction</a></li>
+											</ul>
+										</li>
+										<li>
+											<span class="opener">Shapefiles</span>
+											<ul>
+												<li><a href="#">Under Construction</a></li>
+											</ul>
+										</li>
+										<li>
+											<span class="opener">Satellite</span>
+											<ul>
+												<li><a href="#">Under Construction</a></li>
+											</ul>
+										</li>
+
+									</ul>
+								</nav>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>New recipe's</h2>
+									</header>
+									<div class="mini-posts">
+										<article>
+											<a href="#" class="image"><img src="images/pic07.jpg" alt="" /></a>
+											<p>This is our first Recipe.</p>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
+											<p>Under construction.</p>
+										</article>
+									</div>
+									<ul class="actions">
+										<li><a href="#" class="button">More</a></li>
+									</ul>
+								</section>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Get in touch</h2>
+									</header>
+									<p>You can always contact me to send a new Recipe, or to ask dor something special...</p>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="#">pmn at uevora.pt</a></li>
+										<li class="icon solid fa-phone">(351) 266-745301</li>
+										<li class="icon solid fa-home">Department of Geosciences<br />
+										School of Science and Technology<br />
+										Évora University<br />
+										Apartado 94, 7000 Évora, Portugal</li>
+									</ul>
+								</section>
+
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; Pedro Nogueira | Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								</footer>
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

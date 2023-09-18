@@ -1,0 +1,232 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Crash Course- Lesson 8</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="index.html" class="logo"><strong>Crash Course</strong> by PN</a>
+									<ul class="icons">
+										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+									</ul>
+								</header>
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h1>A Crash Course for R</h1>
+									</header>
+
+									<span class="image main"><img src="images/CC08.jpg" alt="" /></span>
+
+<h2>Lesson 8: Data Exploration</h2>
+
+<p>In this lesson, we will discuss the critical process of exploring geological datasets to gain insights, identify patterns, and prepare for more advanced analyses. Data exploration is a fundamental step in geological research, allowing us to understand the data's characteristics and relationships.</p>
+
+<h3>Exploratory Data Analysis (EDA) Techniques</h3>
+
+
+<p>Exploratory Data Analysis (EDA) is the initial phase of data analysis that focuses on summarizing key characteristics of the dataset and identifying potential trends and outliers. Common EDA techniques include:</p>
+
+<ul>
+<li><strong>Descriptive Statistics:</strong> Calculating summary statistics such as mean, median, standard deviation, and quartiles for numerical variables like rock hardness, mineral concentrations, and depth.</li>
+<li><strong>Data Visualization:</strong> Creating various types of plots, including scatter plots, histograms, box plots, and density plots, to visualize the distribution and relationships within the data.</li>
+<li><strong>Dimensionality Reduction:</strong> Reducing the complexity of high-dimensional data using techniques like Principal Component Analysis (PCA) or t-Distributed Stochastic Neighbor Embedding (t-SNE).</li>
+</ul>
+
+
+<h3>Creating Geological Data for Illustration</h3>
+
+
+<p>To illustrate data exploration techniques, we'll start by generating a sample geological dataset that reflects common geological measurements:
+</p>
+
+<pre><code id="create_data"># Load necessary libraries
+# Create a sample geological dataset
+set.seed(42)  # for reproducibility
+geological_data <- data.frame(
+  Sample_ID = 1:50,
+  Depth_meters = runif(50, 0, 1000),
+  Pyrite_Concentration_percent = rnorm(50, mean = 2, sd = 4),
+  Porosity_percent = rnorm(50, mean = 15, sd = 3)
+)</code></pre>
+
+<p>In this example, our dataset comprises 50 geological samples. We have included variables such as depth in meters, Pyrite concentration in percentage, and porosity in percentage. These are common variables in geological research and exploration. </p>
+
+<h3>Exploratory Data Analysis (EDA) Techniques	</h3>
+
+<p>Exploratory Data Analysis (EDA) involves a range of techniques to understand and summarize geological data effectively. Let's explore some of these techniques:</p>
+
+<ul>
+<li><strong>Descriptive Statistics:</strong> Calculating summary statistics such as mean, median, standard deviation, and quartiles for numerical variables like depth, mineral concentration, and porosity.
+
+<pre><code># Calculate summary statistics for geological data
+summary_stats <- summary(geological_data$Depth_meters)</code></pre>
+</li>
+
+<li><strong>Data Visualization:</strong> Creating various types of plots to visualize the distribution and relationships within the data. For instance, we can create a scatter plot to explore the relationship between depth and mineral concentration:
+
+<pre><code># Create a scatter plot to visualize depth vs. mineral concentration
+plot(geological_data$Depth_meters, geological_data$Pyrite_Concentration_percent,
+     main = "Depth vs. Pyrite Concentration",
+     xlab = "Depth (meters)",
+     ylab = "Pyrite Concentration (%)",
+     col = "blue")</code></pre>
+
+</li>
+
+<li><strong>Correlation Analysis:</strong> Calculating correlation coefficients to quantify the strength and direction of relationships between pairs of geological variables.
+
+<pre><code># Calculate Pearson correlation between depth and Pyrite concentration
+correlation_coefficient <- cor(geological_data$Depth_meters, geological_data$Pyrite_Concentration_percent, method = "pearson")</code></pre>
+
+</li>
+</ul>
+<p>Exploring geological data through EDA allows to gain initial insights, identify outliers, and form hypotheses for further investigation. By using summary statistics, data visualizations, and correlation analysis, reserachers can make informed decisions about the geological phenomena.</p>
+    
+
+
+<p></p>
+Next, in <a href="CC09-Wrangling.html">Lesson 9-Data wrangling with dplyr</a>, we'll go into the basics of efficient data manipulation with the 'dply' package using examples from geological data.
+								</section>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Search -->
+								<section id="search" class="alt">
+									<form method="post" action="#">
+										<input type="text" name="query" id="query" placeholder="Search" />
+									</form>
+								</section>
+
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="index.html">Homepage</a></li>
+										<li><a href="generic.html">Generic</a></li>
+										<li>
+											<span class="opener">Crash Course</span>
+											<ul>
+												<li><a href="CC00-Index.html">Index</a></li>
+												<li><a href="CC01-Introduction.html">Lesson 1- Introduction to R</a></li>
+												<li><a href="CC02-R_basics.html">Lesson 2- R basics</a></li>
+												<li><a href="CC03-ImportExport.html">Lesson 3- Data Import and Export</a></li>
+												<li><a href="CC04-Manipulation.html">Lesson 4- Data Manipulation</a></li>
+												<li><a href="CC05-Visualization.html">Lesson 5- Data Visualization</a></li>
+												<li><a href="CC06-Analysis.html">Lesson 6- Data Analysis</a></li>
+												<li><a href="CC07-Cleaning.html">Lesson 7- Data Cleaning and Preprocessing</a></li>
+												<li><a href="CC08-Exploration.html">Lesson 8- Data Exploration</a></li>
+												<li><a href="CC09-Wrangling.html">Lesson 9- Data Wrangling with 'dplyr'</a></li>
+												<li><a href="CC10-ggplot2.html">Lesson 10- Data Visualization with 'ggplot2'</a></li>
+
+											</ul>
+										</li>
+										<li>
+											<span class="opener">Geochemistry</span>
+											<ul>
+												<li><a href="#">Under Construction</a></li>
+											</ul>
+										
+										</li>
+										<li>
+											<span class="opener">Maps</span>
+											<ul>
+												<li><a href="#">Under Construction</a></li>
+											</ul>
+										</li>
+										<li>
+											<span class="opener">Shapefiles</span>
+											<ul>
+												<li><a href="#">Under Construction</a></li>
+											</ul>
+										</li>
+										<li>
+											<span class="opener">Satellite</span>
+											<ul>
+												<li><a href="#">Under Construction</a></li>
+											</ul>
+										</li>
+
+									</ul>
+								</nav>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>New recipe's</h2>
+									</header>
+									<div class="mini-posts">
+										<article>
+											<a href="#" class="image"><img src="images/pic07.jpg" alt="" /></a>
+											<p>This is our first Recipe.</p>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
+											<p>Under construction.</p>
+										</article>
+									</div>
+									<ul class="actions">
+										<li><a href="#" class="button">More</a></li>
+									</ul>
+								</section>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Get in touch</h2>
+									</header>
+									<p>You can always contact me to send a new Recipe, or to ask dor something special...</p>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="#">pmn at uevora.pt</a></li>
+										<li class="icon solid fa-phone">(351) 266-745301</li>
+										<li class="icon solid fa-home">Department of Geosciences<br />
+										School of Science and Technology<br />
+										Évora University<br />
+										Apartado 94, 7000 Évora, Portugal</li>
+									</ul>
+								</section>
+
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; Pedro Nogueira | Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								</footer>
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
