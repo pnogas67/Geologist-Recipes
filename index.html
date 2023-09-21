@@ -126,7 +126,12 @@
 						</div>  <!--- Inner --->
 
 					</div> <!--- Main --->
-				   <div id="sidebar"></div> <!--- Menu --->
+				   		<div id="sidebar"><!-- Sidebar -->							<div class="inner">
+
+								<div id="menu_sidebar"></div>
+						
+							</div>
+						</div><!-- Sidebar -->
 
 				</div> <!--- Wrapper --->
 
@@ -147,7 +152,7 @@
 		    xhr.onload = function() {
 		      if (xhr.status === 200) {
 		        // Success!
-		        const container = document.getElementById("sidebar");
+		        const container = document.getElementById("menu_sidebar");
 		        container.innerHTML = xhr.responseText;
 		      } else {
 		        // Error!
