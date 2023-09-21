@@ -1,0 +1,413 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Welcome by Pedro Nogueira</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="index.html" class="logo"><strong>Recipe 01-001</strong> by Pedro Nogueira</a>
+									<ul class="icons">
+										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+									</ul>
+								</header>
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h1>Replace NAs</h1>
+										<h2>Handling missing values in a data frame</h2>
+									</header>
+
+									<span class="image main"><img src="images/img001.jpg" alt="" /></span>
+
+<h2>Missing values?</h2>
+
+<p>In geochemical studies, the presence of non-detect (ND) values is a common occurrence. Non-detect values represent situations where the concentration of a particular substance (e.g., an element or compound) in a sample is below the detection limit of the analytical method or instrument being used. These values typically appear as "ND" or "&ltDL" (Below Detection Limit) in laboratory reports or in data tables.</p>
+
+
+<p>The question is <em>'what to do in these cases?'</em></p>
+
+<p>Framing the problem</p>
+
+<ol>
+<li><strong>Detection Limits:</strong> Every analytical method or instrument has a limit below which it cannot reliably measure the concentration of a substance. This limit is referred to as the <strong>detection limit</strong>. It signifies the lowest concentration that the method can quantifiably detect.</li>
+<li><strong>Censored Data:</strong> When a sample's concentration falls below the detection limit, the result is referred to as censored data. It means that the actual concentration is lower than what can be measured, <em>but it is still present in the sample</em>.</li>
+<li><strong>Reporting ND Values:</strong> In analytical reports and datasets, non-detect values are often represented as "ND" or "&ltDL" to indicate that the substance was present but below the detection limit. For example, if the detection limit for a particular element is 0.1 ppm (parts per million), and a sample has a concentration of 0.05 ppm, it would be reported as "ND" because it's below the 0.1 ppm detection limit.</li>
+<li><strong>Handling ND Values in Data Analysis:</strong> Non-detect values can pose challenges in data analysis because they represent a range of possible values below the detection limit. Common approaches to handling ND values include:
+	<ul>
+		<li><strong>Substitution Methods:</strong> Replace ND values with a specific value, such as half of the detection limit, to allow for statistical analysis. For example, if the detection limit is 0.1 ppm, ND values might be replaced with 0.05 ppm.</li>
+		<li><strong>Censoring:</strong> Keep ND values as they are and treat them as left-censored data. This involves using statistical methods designed for censored data, like survival analysis or maximum likelihood estimation.</li>
+		<li><strong>Data Transformation:</strong> Apply data transformation techniques, such as log transformation, to normalize the data while handling ND values.</li>
+		<li><strong>Non-parametric Methods:</strong> Use non-parametric statistical methods that do not assume a specific distribution for the data.</li>
+	</ul>
+</li>
+</ol>
+
+
+
+<p>Handling non-detect values appropriately is essential in geochemical analysis to avoid bias in statistical results and to make meaningful interpretations of the data. </p>
+
+
+
+<p>In R the ND values are commonly named NA (not available).It is better to clean the file before importing it to R.  To replace <span style="color: blue; font-weight: bold;">NA values</span> in a dataframe using only base R one can apply the <strong>is.na()</strong> function and subsetting the dataframe, using the <strong>bracketing []</strong> approach.</p>
+
+<p>Here's how you can do it for all columns and then for a specific columns:</p>
+
+<h2>Replace NA Values for All Columns:
+</h2>
+<p>To replace NA values with a specific value (e.g., 0) for all columns in a dataframe, use the <strong>is.na()</strong> function along with brackets.</p>
+
+
+<pre><code># Replace NA values with 0 for all columns
+your_dataframe[is.na(your_dataframe)] = 0</code></pre>
+
+<p>Replace <em>your_dataframe</em>  with the name of your dataframe and 0 with the value you want to use as a replacement.</p>
+
+
+
+
+<h2>Running example:</h2>
+
+<p>Suppose you have a data frame with 12 samples of the major chemical elements.</p>
+
+<pre><code># Create a data frame with geochemical analysis data
+geochem_analysis <- data.frame(  Sample_ID = 1:12,  # Sample IDs from 1 to 12  SiO2 = c(65.2, 60.7, 67.8, 62.4, 64.3, 66.1, 61.9, 68.2, 63.7, 67.0, 69.3, 70.1),  Al2O3 = c(14.3, 15.5, 13.1, 15.8, 14.6, 14.0, 15.7, 13.0, 14.9, 13.5, 12.8, 13.2),  Fe2O3 = c(5.6, 6.3, 4.9, 6.1, 5.8, 5.7, 6.0, 5.0, 5.9, 5.2, 5.4, 6.5),  MgO = c(4.2,NA, 4.5, 4.0, 4.3, 4.1, NA , 4.6, 4.4, 4.7, 4.0, 4.2),  CaO = c(2.1, 2.3, 2.0, 2.2, 2.4, 2.3, 2.1, 2.2, 2.5, 2.3, 2.6, 2.7),  Na2O = c(3.0, 2.8, 2.9, 3.2, 2.7, 3.1, 2.6, 2.8, 2.5, 2.7,NA , 2.9),  K2O = c(0.8, 1.2, 1.0, 1.1, 1.0, 0.9, 1.3, 0.7, 1.1, 0.9, 1.2, 1.0))
+</code></pre>
+
+<p>The data in a table format is:
+</p>
+
+
+<table>
+    <tr>
+        <th>Sample_ID</th>
+        <th>SiO2</th>
+        <th>Al2O3</th>
+        <th>Fe2O3</th>
+        <th>MgO</th>
+        <th>CaO</th>
+        <th>Na2O</th>
+        <th>K2O</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>65.2</td>
+        <td>14.3</td>
+        <td>5.6</td>
+        <td>4.2</td>
+        <td>2.1</td>
+        <td>3.0</td>
+        <td>0.8</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>60.7</td>
+        <td>15.5</td>
+        <td>6.3</td>
+        <td style="color: red;">NA</td>
+        <td>2.3</td>
+        <td>2.8</td>
+        <td>1.2</td>
+    </tr>
+   <tr>
+        <td>3</td>
+        <td>67.8</td>
+        <td>13.1</td>
+        <td>4.9</td>
+        <td>4.5</td>
+        <td>2.0</td>
+        <td>2.9</td>
+        <td>1.0</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>62.4</td>
+        <td>15.8</td>
+        <td>6.1</td>
+        <td>4.0</td>
+        <td>2.2</td>
+        <td>3.2</td>
+        <td>1.1</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>64.3</td>
+        <td>14.6</td>
+        <td>5.8</td>
+        <td>4.3</td>
+        <td>2.4</td>
+        <td>2.7</td>
+        <td>1.0</td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>66.1</td>
+        <td>14.0</td>
+        <td>5.7</td>
+        <td>4.1</td>
+        <td>2.3</td>
+        <td>3.1</td>
+        <td>0.9</td>
+    </tr>
+    <tr>
+        <td>7</td>
+        <td>61.9</td>
+        <td>15.7</td>
+        <td>6.0</td>
+        <td style="color: red;">NA</td>
+        <td>2.1</td>
+        <td>2.6</td>
+        <td>1.3</td>
+    </tr>
+    <tr>
+        <td>8</td>
+        <td>68.2</td>
+        <td>13.0</td>
+        <td>5.0</td>
+        <td>4.6</td>
+        <td>2.2</td>
+        <td>2.8</td>
+        <td>0.7</td>
+    </tr>
+    <tr>
+        <td>9</td>
+        <td>63.7</td>
+        <td>14.9</td>
+        <td>5.9</td>
+        <td>4.4</td>
+        <td>2.5</td>
+        <td>2.5</td>
+        <td>1.1</td>
+    </tr>
+    <tr>
+        <td>10</td>
+        <td>67.0</td>
+        <td>13.5</td>
+        <td>5.2</td>
+        <td>4.7</td>
+        <td>2.3</td>
+        <td>2.7</td>
+        <td>0.9</td>
+    </tr>
+    <tr>
+        <td>11</td>
+        <td>69.3</td>
+        <td>12.8</td>
+        <td>5.4</td>
+        <td>4.0</td>
+        <td>2.6</td>
+        <td style="color: red;">NA</td>
+        <td>1.2</td>
+    </tr>
+    <tr>
+        <td>12</td>
+        <td>70.1</td>
+        <td>13.2</td>
+        <td>6.5</td>
+        <td>4.2</td>
+        <td>2.7</td>
+        <td>2.9</td>
+        <td>1.0</td>
+    </tr>
+</table>
+<p>Notice that there are some samples that have <span >NAs</span>, the samples 2 and 7 for MgO and the sample 11 for Na<sub>2</sub>O.</p>
+
+
+<p>To visualize the results a boxplot graphic is a useful tool.</p>
+
+<p>To plot the values it is necessary to create a data frame with only the data and not the sample identifications, i.e. <em>Sample_id</em> first column.<br /> For this a new data frame <em>geochem_data</em> is created.</p>
+
+<pre><code># Remove Sample_ID column for boxplot
+geochem_data <- geochem_analysis[, -1]
+
+# Create a boxplot for each element
+boxplot(geochem_data, main="Geochemical Analysis Boxplot",
+        xlab="Elements", ylab="Concentration (%)")</code></pre>
+
+<p>The resulting plot is:</p>
+
+<span class="image"><img src="images/Recipes/R01-001/R01-001_01.png" alt="" /></span>
+
+<p>For this type of graphic the <span style="color: red;">NA values</span> are not relevant and therefore there is no visible problem.</p>
+<p>However, when plotting a scatter XY graphic of SiO<sub>2</sub> Vs MgO there are only 10 points plot as MgO has 2 missing values.</p>
+
+<span class="image"><img src="images/Recipes/R01-001/R01-001_02.png" alt="" /></span>
+
+<p>To solve this problem and have all the values plotted one should replace <span style="color: red;">NA values</span> by some value.</p>
+
+<p>In a vey simplified approach a zero value could replace the <span style="color: red;">NA's</span></p>
+<p> the code for this replacement should be:</p>
+<pre><code># Replace NA values with 0 for all columnsgeochem_data[is.na(geochem_data)] = 0plot(geochem_data$SiO2, geochem_data$MgO,     main="SiO2 vs MgO plot",     pch=16, col="blue",     xlab="SiO2 (%)", ylab="MgO (%)")</code></pre>
+
+<span class="image"><img src="images/Recipes/R01-001/R01-001_03.png" alt="" /></span>
+
+<p>Not a very elegant solution...</p>
+
+<p>Let us suppose that the detection limits are for LOD<sub>MgO</sub> = 4% and for LOD<sub>Na<sub>2</sub>O</sub> = 2.5%</p>
+
+<p>A better solution should be to replace the NAs by these values.</p>
+<p>In this case the <span style="color: red;">NA's</span> should be replaced for each individual column.</p>
+
+<p>The code look like:</p>
+<pre><code># Create a data frame with geochemical analysis datageochem_analysis <- data.frame(  Sample_ID = 1:12,  # Sample IDs from 1 to 12  SiO2 = c(65.2, 60.7, 67.8, 62.4, 64.3, 66.1, 61.9, 68.2, 63.7, 67.0, 69.3, 70.1),  Al2O3 = c(14.3, 15.5, 13.1, 15.8, 14.6, 14.0, 15.7, 13.0, 14.9, 13.5, 12.8, 13.2),  Fe2O3 = c(5.6, 6.3, 4.9, 6.1, 5.8, 5.7, 6.0, 5.0, 5.9, 5.2, 5.4, 6.5),  MgO = c(4.2,NA, 4.5, 4.0, 4.3, 4.1, NA , 4.6, 4.4, 4.7, 4.0, 4.2),  CaO = c(2.1, 2.3, 2.0, 2.2, 2.4, 2.3, 2.1, 2.2, 2.5, 2.3, 2.6, 2.7),  Na2O = c(3.0, 2.8, 2.9, 3.2, 2.7, 3.1, 2.6, 2.8, 2.5, 2.7,NA , 2.9),  K2O = c(0.8, 1.2, 1.0, 1.1, 1.0, 0.9, 1.3, 0.7, 1.1, 0.9, 1.2, 1.0))# Remove Sample_ID column for boxplotgeochem_data <- geochem_analysis[, -1]
+
+# Replace NA values with LOD for MgO columngeochem_data$MgO[ is.na(geochem_data$MgO)] = 4# Replace NA values with LOD for Na2O columngeochem_data$MgO[ is.na(geochem_data$MgO)] = 2.5
+
+
+# Verify the MgO results plot(geochem_data$SiO2, geochem_data$MgO,     main="SiO2 vs MgO plot",     pch=16, col="blue",     xlab="SiO2 (%)", ylab="MgO (%)")</code></pre>
+
+<p>It looks better like this, and the plot is.</p>
+
+
+<span class="image"><img src="images/Recipes/R01-001/R01-001_04.png" alt="" /></span>
+
+<p>Yeah! It is more realistic.</p>
+
+<p>As an exercise you can try to replace the <span style="color: red;">NA's</span> by the mean of the column or by any other value that you consider relevant.</p>
+
+<h3>Related</h3>
+<p>Using zCompositions to replace missing data.</p>
+
+<h3>References</h3>
+<p>Filzmoser, P., Hron, K., Templ, M., 2018. Applied Compositional Data Analysis. With Worked Examples in R. Springer, Switzerland.</p>
+<p>van den Boogaart, K.G., Tolosana-Delgado, R., 2013, Analyzing Compositional Data with R. Springer-Verlag, Berlin, Germany.</p>
+<p>Palarea-Albaladejo, J., Martin-Fernandez, J.A., 2013. Values below detection limit in compositional chemical data. Analytica Chimica Acta 764: 32-43.</p>
+
+
+</section>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="index.html">Homepage</a></li>
+										<li><a href="generic.html">Generic</a></li>
+										<li>
+											<span class="opener">Crash Course</span>
+											<ul>
+												<li><a href="CC00-Index.html">Index</a></li>
+												<li><a href="CC01-Introduction.html">Lesson 1- Introduction to R</a></li>
+												<li><a href="CC02-R_basics.html">Lesson 2- R basics</a></li>
+												<li><a href="CC03-ImportExport.html">Lesson 3- Data Import and Export</a></li>
+												<li><a href="CC04-Manipulation.html">Lesson 4- Data Manipulation</a></li>
+												<li><a href="CC05-Visualization.html">Lesson 5- Data Visualization</a></li>
+												<li><a href="CC06-Analysis.html">Lesson 6- Data Analysis</a></li>
+												<li><a href="CC07-Cleaning.html">Lesson 7- Data Cleaning and Preprocessing</a></li>
+												<li><a href="CC08-Exploration.html">Lesson 8- Data Exploration</a></li>
+												<li><a href="CC09-Wrangling.html">Lesson 9- Data Wrangling with 'dplyr'</a></li>
+												<li><a href="CC10-ggplot2.html">Lesson 10- Data Visualization with 'ggplot2'</a></li>
+
+											</ul>
+										</li>
+										<li>
+											<span class="opener">Geochemistry</span>
+											<ul>
+												<li><a href="#">Under Construction</a></li>
+											</ul>
+										
+										</li>
+										<li>
+											<span class="opener">Maps</span>
+											<ul>
+												<li><a href="#">Under Construction</a></li>
+											</ul>
+										</li>
+										<li>
+											<span class="opener">Shapefiles</span>
+											<ul>
+												<li><a href="#">Under Construction</a></li>
+											</ul>
+										</li>
+										<li>
+											<span class="opener">Satellite</span>
+											<ul>
+												<li><a href="#">Under Construction</a></li>
+											</ul>
+										</li>
+
+									</ul>
+								</nav>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>New recipe's</h2>
+									</header>
+									<div class="mini-posts">
+										<article>
+											<a href="#" class="image"><img src="images/pic07.jpg" alt="" /></a>
+											<p>This is our first Recipe.</p>
+										</article>
+										<article>
+											<a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
+											<p>Under construction.</p>
+										</article>
+									</div>
+									<ul class="actions">
+										<li><a href="#" class="button">More</a></li>
+									</ul>
+								</section>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Get in touch</h2>
+									</header>
+									<p>You can always contact me to send a new Recipe, or ask for something special...</p>
+									<ul class="contact">
+										<li class="icon solid fa-envelope"><a href="#">pmn at uevora.pt</a></li>
+										<li class="icon solid fa-phone">(351) 266-745301</li>
+										<li class="icon solid fa-home">Department of Geosciences<br />
+										School of Sciences and Technology<br />
+										Évora University<br />
+										Apartado 94, 7000 Évora, Portugal</li>
+									</ul>
+								</section>
+
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; Pedro Nogueira | Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								</footer>     
+
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
