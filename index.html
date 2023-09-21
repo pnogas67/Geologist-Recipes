@@ -126,7 +126,7 @@
 						</div>  <!--- Inner --->
 
 					</div> <!--- Main --->
-				<div id="menu_update"></div> <!--- Menu --->
+				   <div id="sidebar"></div> <!--- Menu --->
 
 				</div> <!--- Wrapper --->
 
@@ -147,7 +147,7 @@
 		    xhr.onload = function() {
 		      if (xhr.status === 200) {
 		        // Success!
-		        const container = document.getElementById("menu_update");
+		        const container = document.getElementById("sidebar");
 		        container.innerHTML = xhr.responseText;
 		      } else {
 		        // Error!
