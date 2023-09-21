@@ -55,12 +55,12 @@
 							<!-- Section -->
 								<section>
 									<header class="major">
-										<h2>Our departments</h2>
+										<h2>Our sections</h2>
 									</header>
 									<div class="features">
 										<article>
 											<span class="icon fa-code"></span>
-											<div class="content"><a href="CC01-Introduction.html">
+											<div class="content"><a href="CC01-Index.html">
 												<h3>A crash course for R</h3>
 												<p>This is just the basics... It pretends also to be a goto section when something basic is bugging you.</p>
 											</div></a>
@@ -103,7 +103,7 @@
 									</header>
 									<div class="posts">
 										<article>
-											<a href="#" class="image"><img src="images/img001.jpg" alt="" /></a>
+											<a href="R01-001.html" class="image"><img src="images/img001.jpg" alt="" /></a>
 											<h3>Replace NA's</h3>
 											<p>How to detect NA's in a data frame and replace by zero or a defined value.</p>
 											<ul class="actions">
@@ -111,7 +111,7 @@
 											</ul>
 										</article>
 										<article>
-											<a href="#" class="image"><img src="images/img002.jpg" alt="" /></a>
+											<a href="R02-001.html" class="image"><img src="images/img002.jpg" alt="" /></a>
 											<h3>Retrieve data from Earthref</h3>
 											<p>This tutorial explains how to retrieve data from the GERM Reservoir database.</p>
 											<ul class="actions">
@@ -130,28 +130,26 @@
 			</div>
 
 		<!-- Scripts -->
-
-		
-		
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/browser.min.js"></script>
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
-<script>
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", "https://raw.githubusercontent.com/pnogas67/Geologist-Recipes/main/menu.html", true);    
-    xhr.send();
-
-    xhr.onload = function() {
-      if (xhr.status === 200) {
-        // Success!
-        const container = document.getElementById("menu_update");
-        container.innerHTML = xhr.responseText;
-      } else {
-        // Error!
-      }
-    };
-</script>	
+		<!-- For inserting the menu -->
+		<script>
+		    const xhr = new XMLHttpRequest();
+		    xhr.open("GET", "https://raw.githubusercontent.com/pnogas67/Geologist-Recipes/main/menu.html", true);    
+		    xhr.send();
+		
+		    xhr.onload = function() {
+		      if (xhr.status === 200) {
+		        // Success!
+		        const container = document.getElementById("menu_update");
+		        container.innerHTML = xhr.responseText;
+		      } else {
+		        // Error!
+		      }
+		    };
+		</script>	
 	</body>
 </html>
